@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState, useRef} from "react";
 import {
   Container,
   H1,
@@ -16,22 +16,16 @@ import Trash from "./assets/trash.svg";
 const App = () => {
 
   const [users, setUsers] = useState([]);
-  const [name, setName] = useState();
-  const [age, setAge] = useState();
+  const inputName = useRef();
+  const inputAge = useRef();
 
-  function addNewUser(){
-    setUsers([...users,{id: Math.random(), name, age}])
 
-    console.log(users)
+  function addNewUser(){    
+    setUsers([...users, {id:Math.random(), name:inputName.current.value, age:inputAge.current.value}])
+
   }
 
-  function changeInputName(event){
-    setName(event.target.value)
-  }
 
-  function changeInputAge(event){
-    setAge(event.target.value)
-  }
 
 
   return (
@@ -40,10 +34,10 @@ const App = () => {
       <ContainerItems>
         <H1>Olá!</H1>
         <InputLabel>Nome</InputLabel>
-        <Input onChange={changeInputName} placeholder="Nome" />
+        <Input ref={inputName} placeholder="Nome" />
 
         <InputLabel>Idade</InputLabel>
-        <Input onChange={changeInputAge} placeholder="Idade" />
+        <Input ref={inputAge} placeholder="Idade" />
 
         <Button onClick={addNewUser}>
           Cadastrar
